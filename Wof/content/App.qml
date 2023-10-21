@@ -88,7 +88,7 @@ Window {
         h:parent.height*0.03
         xPos:parent.width*0.87
         yPos:parent.height*0.36
-        displaytext: "2000 / "
+        displaytext: "2000"
         displaycolor: "black"
         bordercolor: "black"
         displaytextsize: homekaloriencounter_nenner.h*0.65
