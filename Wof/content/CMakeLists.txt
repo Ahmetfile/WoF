@@ -15,6 +15,16 @@ qt6_add_qml_module(content
         QML_FILES Ad_Button.qml
         QML_FILES Ad_Drawermenu.qml
         RESOURCES ../tagesuebersicht.svg
-
+        RESOURCES ../esseneintragen.svg
+        RESOURCES ../diaetfestlegen.svg
+        RESOURCES ../gerichterstellen.svg
+        RESOURCES ../drawermenubuttonimage.svg
+        RESOURCES ../meinjournal.svg
+        RESOURCES ../entdecken.svg
+        RESOURCES ../meinfeed.svg
+        RESOURCES ../datenbank.svg
+        RESOURCES ../info.svg
+        QML_FILES Ad_Gerichterstellen.qml
+        QML_FILES Ad_Esseneintragen.qml
 
 )

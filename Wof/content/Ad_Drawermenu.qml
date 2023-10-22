@@ -1,4 +1,9 @@
+// This code regulates the drawermenu that opens after the user clicks on the menu button in the
+// upper left corner.
+// The icons were created by me thorugh the usage of "Inkscape"
+
 import QtQuick 6.2
+import QtQuick.Controls 2.15
 
 Item {
 
@@ -17,13 +22,22 @@ Item {
         y:parent.height*0
         color: "maroon"
 
+        // Drawermenu symbol that is widely recognized
+        Image {
+            id: drawermenubuttonimage
+            anchors.fill: parent
+            source: "drawermenubuttonimage.svg"
+            sourceSize.width: parent.width
+            sourceSize.height: parent.height
+        }
+
         MouseArea{
-            visible: drawermenupage.x !=0
+            visible: drawermenupage.x !=0 // this mouseArea is visible if menupage is open
             anchors.fill: drawermenubutton
 
             onEntered: {
 
-                draweranimation.start()
+                draweranimation.start() // starts drawermenu animation (defined further below)
                 darker.start()
             }
         }
@@ -47,7 +61,8 @@ Item {
     Rectangle{
 
         id:transparencyscreen
-        visible: drawermenupage.x !=-width
+        visible: drawermenupage.x !=-width // darkening of screen under menupage will only start
+        // being visible after the x positon of the menupage starts changing to the right.
         width: parent.width
         height: parent.height
         x:0
@@ -56,6 +71,7 @@ Item {
         color: "black"
         opacity: 0 // allows to adjust the transparency
 
+        // smooth darkening animation after menupage comes out
         PropertyAnimation{
 
             id:darker
@@ -66,6 +82,7 @@ Item {
             duration: 250
         }
 
+        // smooth lightening animation after menupages goes away
         PropertyAnimation{
 
             id:brighter
@@ -76,7 +93,6 @@ Item {
             duration: 250
         }
     }
-
 
     //This code regulates the actual page of the menu
     Rectangle{
@@ -89,27 +105,10 @@ Item {
         z:100
         color: "maroon"
 
-        // This is the invisible smaller square left to the name of the menupoint/Listelement
-        // where the icons will be placed. As of now only done with menupoint 2 (third listElelment)
-        Rectangle{
-            id:item2
-            width: drawermenupage.width*0.20
-            height: drawermenupage.height*(3/20)*(screensize.width/screensize.height)
-            x: drawermenupage.width*0.05
-            // every icon is placed here via adding 0.10 to height*0.10, like height*0.10, height*0.20 etc.
-            y:drawermenupage.height*0.20+(drawermenupage.height*0.10 - item2.height)/2
-            z:101
-            color: "transparent"
+        //The following 9 rectangles are the invisible smaller squares left to the name of the
+        //menupoints/Listelements where the icons will be placed. They are needed to fill the icons in them.
 
-            Image {
-                id: tagesuebersichtimage
-                anchors.fill: parent
-                source: "tagesuebersicht.svg" // loading vector image
-                // setSourceSize.width/height: parent.witdh/height is explicitly needed.
-                sourceSize.width: parent.width
-                sourceSize.height: parent.height
-            }
-        }
+
 
         PropertyAnimation{
 
@@ -137,16 +136,16 @@ Item {
         ListModel{
             id:modelmenu
 
-            ListElement{menupoint:"World of Food";itemcolor:"maroon"}
-            ListElement{menupoint:"Tagesübersicht";itemcolor:"black"}
-            ListElement{menupoint:"Essen eintragen";itemcolor:"maroon"}
-            ListElement{menupoint:"Gericht erstellen";itemcolor:"maroon"}
-            ListElement{menupoint:"Diät festlegen";itemcolor:"maroon"}
-            ListElement{menupoint:"Mein Journal";itemcolor:"maroon"}
-            ListElement{menupoint:"Entdecken";itemcolor:"maroon"}
-            ListElement{menupoint:"Mein Feed";itemcolor:"maroon"}
-            ListElement{menupoint:"Datenbank";itemcolor:"maroon"}
-            ListElement{menupoint:"App Info";itemcolor:"maroon"}
+            ListElement{menupoint:"World of Food";itemcolor:"maroon";}
+            ListElement{menupoint:"Tagesübersicht";itemcolor:"black";imagesource:"tagesuebersicht.svg"}
+            ListElement{menupoint:"Essen eintragen";itemcolor:"maroon";imagesource:"esseneintragen.svg"}
+            ListElement{menupoint:"Gericht erstellen";itemcolor:"maroon";imagesource:"gerichterstellen.svg"}
+            ListElement{menupoint:"Diät festlegen";itemcolor:"maroon";imagesource:"diaetfestlegen.svg"}
+            ListElement{menupoint:"Mein Journal";itemcolor:"maroon";imagesource:"meinjournal.svg"}
+            ListElement{menupoint:"Entdecken";itemcolor:"maroon";imagesource:"entdecken.svg"}
+            ListElement{menupoint:"Mein Feed";itemcolor:"maroon";imagesource:"meinfeed.svg"}
+            ListElement{menupoint:"Datenbank";itemcolor:"maroon";imagesource:"datenbank.svg"}
+            ListElement{menupoint:"App Info";itemcolor:"maroon";imagesource:"info.svg"}
         }
 
         ListView{
@@ -160,7 +159,7 @@ Item {
             // so that they share the same ground attributes and can be specified via the properties
             // in the ListElement{}.
             delegate:
-                Component{
+            Component{
 
                     Item{
                         id:menupointdisplay
@@ -181,19 +180,56 @@ Item {
                                 font.pixelSize: menupointdisplay.height*0.25
                             }
 
+                            Rectangle{
+                                id:rectangleimage
+                                width: drawermenupage.width*0.20
+                                height: drawermenupage.height*(3/20)*(screensize.width/screensize.height)
+                                x: drawermenupage.width*0.05
+                                anchors.verticalCenter: parent.verticalCenter
+                                z:101
+                                color: "transparent"
+
+                                Image{
+                                    id: iconimage
+                                    anchors.fill: parent
+                                    source: imagesource
+                                    sourceSize.width: parent.height
+                                    sourceSize.height: parent.width
+                                }
+                            }
+
+
                             // This code segment deals with highlighting the chosen menupoint
                             MouseArea {
 
 
                                 anchors.fill: parent
+
+
                                 onClicked: {
                                     model.currentIndex = index
+
+                                    // Here the actual pages corresponding to the menupoint that has been
+                                    // clicked are coded to open via the replace methode. The reason
+                                    // why no push methode is used, is because this app does not need
+                                    // the befinits of that methode since there is no "pages history"
+                                    // This in turn makes the pop methode also redundant because
+                                    // replace only works with one layer to begin with that is replaced
+                                    // each time a menupoint in the drawermenu is clicked.
+                                    if(index===1){
+                                        stackedview.replace("App.qml")
+                                    }
+                                    if(index===2){
+                                        stackedview.replace("Ad_Esseneintragen.qml")
+                                    }
+
+                                    if(index===3){
+                                        stackedview.replace("Ad_Gerichterstellen.qml")
+                                    }
+
                                     if(index!==0){
                                         modelmenu.setProperty(index,"itemcolor","black")
 
-                                        if(index===0){
-                                        modelmenu.setProperty(index,"itemcolor","maroon")
-                                        }
                                         if(index!==1){
                                             modelmenu.setProperty(1,"itemcolor","maroon")
                                         }
@@ -214,7 +250,7 @@ Item {
                                         }
                                         if(index!==7){
                                             modelmenu.setProperty(7,"itemcolor","maroon")
-                                            }
+                                        }
                                         if(index!==8){
                                             modelmenu.setProperty(8,"itemcolor","maroon")
                                         }
@@ -226,39 +262,13 @@ Item {
                             }
                         }
                     }
-                }
             }
         }
-
-    Rectangle{
-
-        id:drawermenu1stick
-        width:drawermenubutton.width*0.5
-        height: drawermenubutton.height*0.06
-        x:parent.width*0.15*0.25
-        y:parent.height*0.07*0.30
-        color: "white"
-        radius: drawermenu1stick.width*0.08
     }
 
-    Rectangle{
-
-        id:drawermenu2stick
-        width:drawermenubutton.width*0.5
-        height: drawermenubutton.height*0.06
-        x:parent.width*0.15*0.25
-        y:parent.height*0.07*0.47
-        color:"white"
-        radius: drawermenu2stick.width*0.08
+    StackView{
+        id:stackedview
+        anchors.fill: parent
     }
 
-    Rectangle{
-
-        id:drawermenu3stick
-        width:drawermenubutton.width*0.5
-        height: drawermenubutton.height*0.06
-        x:parent.width*0.15*0.25
-        y:parent.height*0.07*0.64
-        radius: drawermenu3stick.width*0.08
-    }
 }

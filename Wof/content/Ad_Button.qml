@@ -76,11 +76,11 @@ Item {
 
             onEntered: {
 
-            buttonbody.color = basicbutton.onpresscolor
-            buttontext.color = "white"
-            basicbutton.clicked()
-            textanimation1.start()
-         }
+                buttonbody.color = basicbutton.onpresscolor
+                buttontext.color = "white"
+                basicbutton.clicked()
+                textanimation1.start()
+            }
 
             onReleased: {
                 buttonbody.color = normalcolor

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 11.0.2, 2023-10-20T00:05:02. -->
+<!-- Written by QtCreator 11.0.2, 2023-10-22T00:20:00. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -208,7 +208,7 @@
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
       <value type="QString" key="BuildTargetSdk">android-31</value>
       <value type="QString" key="BuildToolsVersion"></value>
-      <value type="QString" key="KeystoreLocation">C:/Users/Ahmet/Downloads/android_release.keystore</value>
+      <value type="QString" key="KeystoreLocation">C:/Users/Ahmet/Desktop/Basicscoding/android_release.keystore</value>
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Android-APK erstellen</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.AndroidBuildApkStep</value>
