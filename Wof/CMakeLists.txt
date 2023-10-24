@@ -14,7 +14,7 @@ if (Qt6_VERSION VERSION_GREATER_EQUAL 6.3)
 endif()
 
 qt_add_executable(WofApp src/main.cpp
-MANUAL_FINALIZATION
+    MANUAL_FINALIZATION
 )
 
 qt_add_resources(WofApp "configuration"
@@ -46,8 +46,8 @@ install(TARGETS WofApp
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-
 set_property(TARGET WofApp APPEND PROPERTY
     QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android
 )
+
 qt_finalize_executable(WofApp)

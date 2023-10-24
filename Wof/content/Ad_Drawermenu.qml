@@ -10,6 +10,13 @@ Item {
     id:screensize
     // need anchors.fill: parent if you want to import to the App.qml via calling Ad_drawermenu{}
     // correctly.
+
+    // Need those to let drawermenu know which menupoint to highlight via insertion in the ListElement
+
+
+
+
+
     anchors.fill: parent
 
     // Button to open menu
@@ -32,6 +39,7 @@ Item {
         }
 
         MouseArea{
+            id:maone
             visible: drawermenupage.x !=0 // this mouseArea is visible if menupage is open
             anchors.fill: drawermenubutton
 
@@ -93,6 +101,7 @@ Item {
             duration: 250
         }
     }
+
 
     //This code regulates the actual page of the menu
     Rectangle{
@@ -166,6 +175,8 @@ Item {
                         width: parent.width
                         height: drawermenupage.height*0.10
 
+                        signal stackorder
+
                         Rectangle{
                             id:menupointbody
                             width: parent.width
@@ -201,12 +212,14 @@ Item {
 
                             // This code segment deals with highlighting the chosen menupoint
                             MouseArea {
-
+                                id:matwo
 
                                 anchors.fill: parent
 
 
                                 onClicked: {
+
+
                                     model.currentIndex = index
 
                                     // Here the actual pages corresponding to the menupoint that has been
@@ -216,18 +229,46 @@ Item {
                                     // This in turn makes the pop methode also redundant because
                                     // replace only works with one layer to begin with that is replaced
                                     // each time a menupoint in the drawermenu is clicked.
-                                    if(index===1){
-                                        stackedview.replace("App.qml")
-                                    }
-                                    if(index===2){
-                                        stackedview.replace("Ad_Esseneintragen.qml")
-                                    }
 
-                                    if(index===3){
-                                        stackedview.replace("Ad_Gerichterstellen.qml")
-                                    }
 
                                     if(index!==0){
+
+                                        if(index===1){
+                                            stackview.pop()
+                                            stackview.push("Ad_Tagesuebersicht.qml")
+                                        }
+                                        if(index===2){
+                                            stackview.pop()
+                                            stackview.push("Ad_Esseneintragen.qml")
+                                        }
+                                        if(index===3){
+                                            stackview.pop()
+                                            stackview.push("Ad_Gerichterstellen.qml")
+                                        }
+                                        if(index===4){
+                                            stackview.pop()
+                                            stackview.push("Ad_Diaetfestlegen.qml")
+                                        }
+                                        if(index===5){
+                                            stackview.pop()
+                                            stackview.push("Ad_Meinjournal.qml")
+                                        }
+                                        if(index===6){
+                                            stackview.pop()
+                                            stackview.push("Ad_Entdecken.qml")
+                                        }
+                                        if(index===7){
+                                            stackview.pop()
+                                            stackview.push("Ad_Meinfeed.qml")
+                                        }
+                                        if(index===8){
+                                            stackview.pop()
+                                            stackview.push("Ad_Datenbank.qml")
+                                        }
+                                        if(index===9){
+                                            stackview.pop()
+                                            stackview.push("Ad_Appinfo.qml")
+                                        }
                                         modelmenu.setProperty(index,"itemcolor","black")
 
                                         if(index!==1){
@@ -264,11 +305,6 @@ Item {
                     }
             }
         }
-    }
-
-    StackView{
-        id:stackedview
-        anchors.fill: parent
     }
 
 }
