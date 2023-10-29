@@ -24,7 +24,6 @@ qt6_add_qml_module(content
         RESOURCES ../datenbank.svg
         RESOURCES ../info.svg
         QML_FILES Ad_Tagesuebersicht.qml
-        QML_FILES Ad_Stackview.qml
         RESOURCES ../drawermenubuttonimage.svg
         QML_FILES Ad_Esseneintragen.qml
         QML_FILES Ad_Gerichterstellen.qml
@@ -34,4 +33,7 @@ qt6_add_qml_module(content
         QML_FILES Ad_Meinfeed.qml
         QML_FILES Ad_Datenbank.qml
         QML_FILES Ad_Appinfo.qml
+        RESOURCES ../addsymbole.svg
+        QML_FILES Ad_Adddiet.qml
+        RESOURCES ../haken.svg
 )
